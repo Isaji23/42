@@ -1,42 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isaji23 <isaji23@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 22:24:16 by inijimen          #+#    #+#             */
-/*   Updated: 2025/11/06 13:52:22 by isaji23          ###   ########.fr       */
+/*   Created: 2025/11/06 14:11:24 by isaji23           #+#    #+#             */
+/*   Updated: 2025/11/06 14:24:33 by isaji23          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_in_set(char c, char const *set)
+static size_t	get_num_len(int n)
 {
-	while (*set)
+	size_t	len;
+
+	len = 0;
+	while (n >= 10)
 	{
-		if (c == *set)
-			return (1);
-		set++;
+		n /= 10;
+		len++;
 	}
-	return (0);
+	return (len);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_itoa(int n)
 {
-	size_t	start;
-	size_t	end;
+	char	*a;
+	int		negative;
+	size_t	len;
 
-	if (!s1 || !set)
+	negative = 0;
+	if (n < 0)
+	{
+		negative = 1;
+		n = n * -1;
+	}
+	len = get_num_len(n);
+	if (negative)
+		a = malloc(sizeof(char *) * len + 2);
+	else
+		a = malloc(sizeof(char *) * len + 1);
+	if (!a)
 		return (NULL);
-	start = 0;
-	while (s1[start] && is_in_set(s1[start], set))
-		start++;
-	end = ft_strlen(s1);
-	if (start == end)
-		return (ft_strdup(""));
-	while (end > start && is_in_set(s1[end - 1], set))
-		end--;
-	return (ft_substr(s1, start, end - start));
+	if (negative)
+		a[0] = '-';
+	return (a);
 }
