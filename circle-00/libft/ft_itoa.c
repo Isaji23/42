@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isaji23 <isaji23@student.42.fr>            +#+  +:+       +#+        */
+/*   By: inijimen <inijimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:11:24 by isaji23           #+#    #+#             */
-/*   Updated: 2025/11/06 14:24:33 by isaji23          ###   ########.fr       */
+/*   Updated: 2025/11/06 20:37:23 by inijimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_num_len(int n)
+static size_t	get_num_len(long n)
 {
 	size_t	len;
 
+	if (n == 0)
+		return (1);
 	len = 0;
-	while (n >= 10)
+	while (n > 0)
 	{
 		n /= 10;
 		len++;
@@ -25,26 +27,42 @@ static size_t	get_num_len(int n)
 	return (len);
 }
 
+static void	fill_digits(char *a, long num, int neg, size_t len)
+{
+	int	i;
+
+	i = (int) len - 1;
+	while (i >= neg)
+	{
+		a[i] = (char)('0' + (num % 10));
+		num /= 10;
+		i--;
+	}
+}
+
 char	*ft_itoa(int n)
 {
-	char	*a;
-	int		negative;
+	long	num;
+	int		neg;
+	size_t	digits;
 	size_t	len;
+	char	*a;
 
-	negative = 0;
-	if (n < 0)
+	num = n;
+	neg = 0;
+	if (num < 0)
 	{
-		negative = 1;
-		n = n * -1;
+		neg = 1;
+		num = -num;
 	}
-	len = get_num_len(n);
-	if (negative)
-		a = malloc(sizeof(char *) * len + 2);
-	else
-		a = malloc(sizeof(char *) * len + 1);
+	digits = get_num_len(num);
+	len = digits + neg;
+	a = (char *)malloc(sizeof(char) * (len + 1));
 	if (!a)
 		return (NULL);
-	if (negative)
+	if (neg)
 		a[0] = '-';
+	fill_digits(a, num, neg, len);
+	a[len] = '\0';
 	return (a);
 }
