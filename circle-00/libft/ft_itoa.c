@@ -6,13 +6,13 @@
 /*   By: inijimen <inijimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:11:24 by isaji23           #+#    #+#             */
-/*   Updated: 2025/11/06 20:37:23 by inijimen         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:49:33 by inijimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_num_len(long n)
+static size_t	ft_get_num_len(long n)
 {
 	size_t	len;
 
@@ -27,7 +27,7 @@ static size_t	get_num_len(long n)
 	return (len);
 }
 
-static void	fill_digits(char *a, long num, int neg, size_t len)
+static void	ft_fill_digits(char *a, long num, int neg, size_t len)
 {
 	int	i;
 
@@ -55,14 +55,14 @@ char	*ft_itoa(int n)
 		neg = 1;
 		num = -num;
 	}
-	digits = get_num_len(num);
+	digits = ft_get_num_len(num);
 	len = digits + neg;
 	a = (char *)malloc(sizeof(char) * (len + 1));
 	if (!a)
 		return (NULL);
 	if (neg)
 		a[0] = '-';
-	fill_digits(a, num, neg, len);
+	ft_fill_digits(a, num, neg, len);
 	a[len] = '\0';
 	return (a);
 }

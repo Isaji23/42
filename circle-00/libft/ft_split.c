@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isaji23 <isaji23@student.42.fr>            +#+  +:+       +#+        */
+/*   By: inijimen <inijimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:30:47 by isaji23           #+#    #+#             */
-/*   Updated: 2025/11/06 14:10:38 by isaji23          ###   ########.fr       */
+/*   Updated: 2025/11/07 16:49:26 by inijimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_words(char const *s, char c)
+static size_t	ft_count_words(char const *s, char c)
 {
 	size_t	count;
 	int		in_word;
@@ -33,7 +33,7 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-static size_t	word_len(char const *s, char c)
+static size_t	ft_word_len(char const *s, char c)
 {
 	size_t	len;
 
@@ -43,7 +43,7 @@ static size_t	word_len(char const *s, char c)
 	return (len);
 }
 
-static char	**free_all(char **tab, int i)
+static char	**ft_free_all(char **tab, int i)
 {
 	while (i > 0)
 	{
@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	tab = malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -72,10 +72,10 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s == '\0')
 			break ;
-		len = word_len(s, c);
+		len = ft_word_len(s, c);
 		tab[i] = ft_substr(s, 0, len);
 		if (!tab[i])
-			return (free_all(tab, i));
+			return (ft_free_all(tab, i));
 		i++;
 		s += len;
 	}
