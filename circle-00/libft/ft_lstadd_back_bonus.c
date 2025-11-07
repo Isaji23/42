@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isaji23 <isaji23@student.42.fr>            +#+  +:+       +#+        */
+/*   By: inijimen <inijimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:42:29 by isaji23           #+#    #+#             */
-/*   Updated: 2025/11/07 13:49:26 by isaji23          ###   ########.fr       */
+/*   Updated: 2025/11/07 17:25:57 by inijimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return ;
 	}
-	new->next = NULL;
 	last = ft_lstlast(*lst);
 	last->next = new;
 }
